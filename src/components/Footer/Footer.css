@@ -1,0 +1,139 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+}
+
+.footer__copyright {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #b6bcbf;
+  margin: 30px 0 26px;
+}
+
+.footer__container {
+  display: flex;
+  padding: 28px 0 28px;
+}
+
+.footer__menu {
+  display: flex;
+  width: 304px;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-right: 40px;
+}
+
+.footer__link {
+  color: #1a1b22;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.4s linear;
+}
+
+.footer__link:hover {
+  opacity: 0.8;
+}
+
+.footer__socials {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.footer__social-link {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: block;
+  transition: opacity 0.4s linear;
+}
+
+.footer__social-link:hover {
+  opacity: 0.8;
+}
+
+.footer__social:first-of-type {
+  margin-right: 24px;
+}
+
+@media screen and (min-width: 721px) and (max-width: 1191px) {
+  .footer__copyright {
+    margin: 24px 0 18px;
+  }
+
+  .footer__container {
+    padding: 21px 0 21px;
+  }
+
+  .footer__menu {
+    width: 264px;
+    margin-right: 24px;
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width: 720px) {
+  .footer {
+    flex-direction: column-reverse;
+    padding: 20px 0 22px;
+  }
+
+  .footer__copyright {
+    margin: 0 ;
+  }
+
+  .footer__container {
+    padding:  0 ;
+  }
+
+  .footer__menu {
+    width: 264px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+
+@media screen and (max-width: 425px) {
+  .footer {
+    flex-direction: column-reverse;
+    padding: 20px 0 22px;
+  }
+
+  .footer__copyright {
+    margin: 0;
+  }
+
+  .footer__container {
+    padding: 0;
+  }
+
+  .footer__menu {
+    flex-direction: column;
+    min-width: 200px;
+    margin-bottom: 40px;
+    margin-right: 16px;
+    height: 72px;
+  }
+
+  .footer__link {
+    line-height: 48px;
+  }
+
+  .footer__socials {
+    align-self: flex-start;
+  }
+}

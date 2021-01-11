@@ -1,0 +1,126 @@
+.search {
+  margin: 0 auto;
+  padding: 80px 0;
+  max-width: 608px;
+}
+
+.search__title {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 60px;
+  line-height: 64px;
+  color: #fff;
+  margin: 0;
+  margin-bottom: 32px;
+}
+
+.search__subtitle {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff;
+  margin: 0;
+  margin-bottom: 41px;
+  max-width: 545px;
+}
+
+.search__form {
+  width: 100%;
+}
+
+.search__error {
+  height: 15px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #ff0000;
+  display: block;
+  visibility: hidden;
+  margin-bottom: 8px;
+}
+
+.search__error_visible {
+  visibility: visible;
+}
+
+.search__container {
+  display: flex;
+  position: relative;
+  background: #fff;
+  width: 100%;
+  margin: 0;
+  padding: 21px 0 21px 24px;
+  border-radius: 100px;
+}
+
+.search__input {
+  font-family: "Roboto", Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1a1b22;
+  border: none;
+  max-width: 376px;
+  width: 100%;
+}
+
+.search__input::placeholder {
+  font-size: 16px;
+  line-height: 22px;
+  color: #b6bcbf;
+}
+
+.search__input:focus {
+  outline: none;
+  border-bottom: 1px solid #000;
+}
+
+@media screen and (max-width: 967px) {
+  .search {
+    padding: 38px 0 48px;
+    max-width: 448px;
+  }
+  .search__title {
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 16px;
+    max-width: 385px;
+  }
+  .search__subtitle {
+    margin-bottom: 25px;
+    max-width: 452px;
+  }
+  .search__container {
+    padding: 17px 0 17px 24px;
+  }
+  .search__input {
+    max-width: 228px;
+  }
+}
+
+@media screen and (max-width: 554px) {
+  .search {
+    padding: 86px 0 88px;
+    max-width: 288px;
+  }
+  .search__subtitle {
+    margin-bottom: 99px;
+  }
+  .search__container {
+    width: 100%;
+    padding: 17px 16px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+  .search__input {
+    width: 100%;
+  }
+}
