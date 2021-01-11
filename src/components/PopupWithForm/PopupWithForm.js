@@ -60,19 +60,19 @@ function PopupWithForm({
             <div className='popup__input-container'>
               <label className='popup__label'>Email</label>
               <input className='popup__input'
-                id='email'
+                id={isRegisteredPopupOpen ? 'email-reg' : 'email'}
                 name='email'
                 type='email'
                 placeholder='Введите почту'
                 required
                 onChange={handleEmailChange}
               />
-              <span id='email-error' className='popup__error' />
+              <span id={isRegisteredPopupOpen ? 'email-reg-error' : 'email-error'} className='popup__error' />
             </div>
             <div className='popup__input-container'>
               <label className='popup__label'>Пароль</label>
               <input className='popup__input'
-                id='password'
+                id={isRegisteredPopupOpen ? 'password-reg' : 'password'}
                 name='password'
                 type='password'
                 placeholder='Введите пароль'
@@ -81,7 +81,7 @@ function PopupWithForm({
                 required
                 onChange={handlePasswordChange}
               />
-              <span id='password-error' className='popup__error'></span>
+              <span id={isRegisteredPopupOpen ? 'password-reg-error' : 'password-error'} className='popup__error'></span>
             </div>
             {children}
           </fieldset>

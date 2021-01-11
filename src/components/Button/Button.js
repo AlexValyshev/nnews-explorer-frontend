@@ -17,16 +17,16 @@ function Button({
           ${savedNews ? 'button_hidden' : ''}
           ${popupForm ? 'button_theme_form' : ''}`}
     >
-      <div className={`button__link ${(isMenu || mainPage) ? 'button__link_theme_light' : ''}
+      <span className={`button__link ${(isMenu || mainPage) ? 'button__link_theme_light' : ''}
       ${cardsList ? 'button__link_theme_cards' : ''}
       ${popupForm ? 'button__link_theme_form' : ''}
       ${search ? 'button__link_theme_search' : ''}
       ${isLoggedIn ? 'button__link_theme_log' : ''}
       `} >
         {nameButton}
-      </div>
+      </span>
       {nameButton
-        ? <div className={`button__logout
+        ? <span className={`button__logout
         ${(isMenu || mainPage) ? 'button__logout_theme_light' : ''}
         ${(cardsList || !isLoggedIn) ? 'button__logout_hidden' : ''}`} />
         : ''}
