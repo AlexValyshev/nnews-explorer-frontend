@@ -1,0 +1,316 @@
+.card {
+  width: 100%;
+  margin: 0;
+  font-size: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: relative;
+  max-height: 576px;
+}
+
+.card__image {
+  width: 100%;
+  height: 272px;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 20px;
+}
+
+.card__container {
+  max-width: 352px;
+  width: 100%;
+  height: 260px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card__box {
+  width: 100%;
+}
+
+.card__date {
+  margin: 0 0 12px;
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+}
+
+.card__title {
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  color: #1a1b22;
+  margin: 0 0 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.card__text {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1a1b22;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.card__source {
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #b6bcbf;
+  margin: 0;
+  transition: opacity 0.4s linear;
+  text-decoration: none;
+}
+
+.card__source:hover {
+  opacity: 0.8;
+}
+
+.card__message {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0;
+  color: #000;
+  position: absolute;
+  display: none;
+}
+
+.card__message_keyword {
+  display: block;
+  font-size: 14px;
+  line-height: 24px;
+  padding: 8px 12px;
+  top: 24px;
+  left: 24px;
+}
+
+.card__message_save {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 12px;
+  padding: 14px 0;
+  top: 24px;
+  right: 69px;
+}
+
+.card__message_delete {
+  width: 159px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 14px;
+  padding: 13px 0;
+  top: 24px;
+  right: 69px;
+}
+
+.card__icon {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: none;
+  transition: opacity 0.3s linear;
+}
+
+.card__icon:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.card__icon:focus {
+  outline: none;
+}
+
+.card__icon_save-passive {
+  background-image: url('../../images/save-passive.svg');
+  background-position: center;
+}
+
+.card__icon_save-active {
+  background-image: url('../../images/save-active.svg');
+  ;
+}
+
+.card__icon_trash-passive {
+  background-image: url('../../images/passiveTrash.svg');
+  background-position: center;
+}
+
+.card__icon_trash-active {
+  background-image: url('../../images/trash.svg');
+  background-position: center;
+}
+
+.card__icon_save {
+  background-image: url('../../images/save.svg');
+  background-position: center;
+}
+
+@media screen and (min-width: 1192px) and (max-width: 1311px){
+  .card {
+    max-height: 514px;
+  }
+  .card__image {
+    height: 245px;
+  }
+  .card__container {
+    width: 312px;
+    height: 252px;
+  }
+}
+
+@media screen and (min-width: 968px) and (max-width: 1191px){
+  .card {
+    padding-bottom: 16px;
+    max-height: 446px;
+  }
+  .card__image {
+    height: 196px;
+    margin-bottom: 16px;
+  }
+  .card__date {
+    margin: 0 0 10px;
+  }
+  .card__container {
+    width: 256px;
+    height: 246px;
+  }
+  .card__title {
+    font-size: 22px;
+    line-height: 26px;
+    margin: 0 0 10px;
+  }
+  .card__message_keyword {
+    top: 16px;
+    left: 16px;
+  }
+  .card__message_save {
+    top: 61px;
+    right: 16px;
+  }
+  .card__message_delete {
+    top: 61px;
+    right: 16px;
+  }
+  .card__icon {
+    top: 16px;
+    right: 16px;
+  }
+}
+
+@media screen and (max-width: 967px) {
+  .card {
+    padding-bottom: 16px;
+    max-height: 420px;
+  }
+  .card__image {
+    height: 150px;
+    margin-bottom: 16px;
+  }
+  .card__date {
+    margin: 0 0 12px;
+  }
+  .card__container {
+    width: 192px;
+    height: 238px;
+  }
+  .card__title {
+    font-size: 22px;
+    line-height: 24px;
+    margin: 0 0 10px;
+  }
+  .card__message_keyword {
+    top: 8px;
+    left: 8px;
+  }
+  .card__message_save {
+    top: 53px;
+    right: 8px;
+  }
+  .card__message_delete {
+    top: 53px;
+    right: 8px;
+  }
+  .card__icon {
+    top: 8px;
+    right: 8px;
+  }
+}
+
+@media screen and (max-width: 487px) {
+  .card {
+    max-height: 440px;
+  }
+  .card__image {
+    height: 196px;
+  }
+  .card__date {
+    margin: 0 0 10px;
+  }
+  .card__container {
+    width: 256px;
+    height: 246px;
+  }
+  .card__title {
+    line-height: 26px;
+  }
+  .card__message_keyword {
+    top: 16px;
+    left: 16px;
+  }
+  .card__message_save {
+    top: 61px;
+    right: 16px;
+  }
+  .card__message_delete {
+    top: 61px;
+    right: 16px;
+  }
+  .card__icon {
+    top: 16px;
+    right: 16px;
+  }
+}

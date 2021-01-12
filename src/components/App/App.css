@@ -1,0 +1,40 @@
+.app {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 1232px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1192px) and (max-width: 1311px) {
+  .container {
+    max-width: 1112px;
+  }
+}
+
+@media screen and (min-width: 968px) and (max-width: 1191px) {
+  .container {
+    max-width: 888px;
+  }
+}
+
+@media screen and (min-width: 720px) and (max-width: 967px) {
+  .container {
+    max-width: 688px;
+  }
+}
+
+@media screen and (max-width: 719px) {
+  .container {
+    max-width: calc(100% - 32px);
+  }
+}
+
+@media screen and (max-width: 487px) {
+  .container {
+    min-width: 288px;
+  }
+}

@@ -1,0 +1,21 @@
+.main-background {
+  background-image: url('../../images/background-header1.jpg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  position: relative;
+}
+
+@media screen and (min-width: 321px) and (max-width: 967px) {
+  .main-background {
+    background-image: url('../../images/backgrouhd-header2.jpg');
+    background-size: cover;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .main-background {
+    background-image: url('../../images/background-header3.jpg');
+    background-position: top;
+    min-width: 320px;
+  }
+}
