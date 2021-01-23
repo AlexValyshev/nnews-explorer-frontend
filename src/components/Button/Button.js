@@ -3,8 +3,8 @@ import React from 'react';
 import './Button.css';
 
 function Button({
-  mainPage, savedNews, isMenu, handleButtonIn, handleButtonOut, handleButtonClick,
-  search, cardsList, isLoggedIn, popupForm, nameButton,
+  mainPage, savedNewsPage, isMenu, handleButtonIn, handleButtonOut, handleButtonClick,
+  search, cardsList, isLoggedIn, popupForm, nameButton, hiddenButton, isDisabled,
 }) {
   return (
     <button
@@ -12,10 +12,13 @@ function Button({
         : (isLoggedIn ? handleButtonOut : handleButtonIn)}
       type={search || popupForm ? 'submit' : 'button'}
       className={`button ${(isMenu || mainPage) ? 'button_theme_light' : ''}
+          ${(!isDisabled && popupForm) ? 'button_disabled' : ''}
           ${search ? 'button_theme_search' : ''}
           ${cardsList ? 'button_theme_cards' : ''}
-          ${savedNews ? 'button_hidden' : ''}
-          ${popupForm ? 'button_theme_form' : ''}`}
+          ${savedNewsPage ? 'button_hidden' : ''}
+          ${popupForm ? 'button_theme_form' : ''}
+          ${(cardsList && hiddenButton) ? 'button_hidden' : ''}`}
+      disabled={!!((popupForm && !isDisabled))}
     >
       <span className={`button__link ${(isMenu || mainPage) ? 'button__link_theme_light' : ''}
       ${cardsList ? 'button__link_theme_cards' : ''}

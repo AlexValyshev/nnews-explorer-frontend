@@ -13,12 +13,15 @@
   max-height: 576px;
 }
 
+.card__link{
+  margin-bottom: 20px;
+}
+
 .card__image {
   width: 100%;
   height: 272px;
   object-fit: cover;
   object-position: center;
-  margin-bottom: 20px;
 }
 
 .card__container {
@@ -191,7 +194,7 @@
 
 @media screen and (min-width: 1192px) and (max-width: 1311px){
   .card {
-    max-height: 514px;
+    max-height: 544px;
   }
   .card__image {
     height: 245px;
@@ -205,11 +208,13 @@
 @media screen and (min-width: 968px) and (max-width: 1191px){
   .card {
     padding-bottom: 16px;
-    max-height: 446px;
+    max-height: 462px;
+  }
+  .card__link{
+    margin-bottom: 16px;
   }
   .card__image {
     height: 196px;
-    margin-bottom: 16px;
   }
   .card__date {
     margin: 0 0 10px;
@@ -246,9 +251,11 @@
     padding-bottom: 16px;
     max-height: 420px;
   }
+  .card__link{
+    margin-bottom: 16px;
+  }
   .card__image {
     height: 150px;
-    margin-bottom: 16px;
   }
   .card__date {
     margin: 0 0 12px;
@@ -282,7 +289,7 @@
 
 @media screen and (max-width: 487px) {
   .card {
-    max-height: 440px;
+    max-height: 460px;
   }
   .card__image {
     height: 196px;

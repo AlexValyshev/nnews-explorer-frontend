@@ -34,6 +34,10 @@
   margin-bottom: 64px;
 }
 
+.cards__elements_button-hidden {
+  margin-bottom: 0;
+}
+
 .cards__elements_saved-news {
   margin-bottom: 0;
 }

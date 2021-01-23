@@ -87,7 +87,7 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (min-width: 555px) and (max-width: 767px) {
   .about {
     padding: 32px 0 80px;
     flex-direction: column;
@@ -101,10 +101,29 @@
     margin: 0 auto 24px;
     padding-top: 0;
   }
+  .about__container {
+    max-width: 448px;
+    margin: 0 auto;
+  }
 }
 
 @media screen and (max-width: 554px) {
+
   .about {
+    padding: 32px 0 80px;
+    flex-direction: column;
     max-width: 288px;
   }
+
+  .about__photo-container {
+    width: 272px;
+    height: 272px;
+    margin: 0 auto 24px;
+    padding-top: 0;
+  }
+  .about__container {
+    max-width: 288px;
+    margin: 0 auto;
+  }
 }
+

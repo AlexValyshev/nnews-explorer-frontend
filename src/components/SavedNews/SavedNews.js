@@ -5,21 +5,25 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SavedNews({
-  openPopup, isLoggedIn, setLoggedIn, savedNewsCards,
+  openPopup, isLoggedIn, onSignOut, onDeleteNews, localSavedNewsCards,
 }) {
+  const savedNewsCards = (localSavedNewsCards === null || localSavedNewsCards === undefined)
+    ? [] : localSavedNewsCards;
   return (
     <>
       <Header
         isSaved={true}
         openPopup={openPopup}
         isLoggedIn={isLoggedIn}
-        setLoggedIn={setLoggedIn}
+        onSignOut={onSignOut}
+        savedNewsPage={true}
       />
       <SavedNewsHeader savedNewsCards={savedNewsCards}/>
       <NewsCardList
-        savedNews={true}
+        savedNewsPage={true}
         isLoggedIn={isLoggedIn}
         savedNewsCards={savedNewsCards}
+        onDeleteNews={onDeleteNews}
       />
     </>
   );

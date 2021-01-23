@@ -174,6 +174,11 @@
   display: block;
   visibility: hidden;
 }
+
+.popup__error_input {
+  visibility: visible;
+}
+
 .popup__error_form {
   text-align: center;
   margin-bottom: 7px;

@@ -5,21 +5,22 @@ import Button from '../Button/Button';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 const Navigation = ({
-  mainPage, openPopup, savedNews,
-  handleMenuClick, isMenu, isLoggedIn, setLoggedIn, isOpen,
+  mainPage, openPopup, onOpenSavedNews,
+  handleMenuClick, isMenu, isLoggedIn, onSignOut, isOpen,
 }) => {
   const currentUser = React.useContext(CurrentUserContext);
   const history = useHistory();
 
-  const handleButtonIn = () => {
+  function handleButtonIn() {
     handleMenuClick();
     openPopup();
-  };
+  }
 
-  const handleButtonOut = () => {
+  function handleButtonOut() {
     history.push('/');
-    setLoggedIn(false);
-  };
+    onSignOut(false);
+  }
+
   return (
     <div className='navigation'>
 
@@ -31,14 +32,13 @@ const Navigation = ({
             Главная
           </NavLink>
           {isLoggedIn
-            ? <NavLink to='/saved-news' className={`navigation__link ${(isMenu || mainPage) ? 'navigation_theme-light' : 'navigation__link_active'}`}>
+            ? <NavLink to='/saved-news' onClick={onOpenSavedNews} className={`navigation__link ${(isMenu || mainPage) ? 'navigation_theme-light' : 'navigation__link_active'}`}>
               Сохраненные статьи
             </NavLink> : ''
           }
         </nav>
         <Button
           mainPage={mainPage}
-          savedNews={savedNews}
           nameButton={isLoggedIn ? currentUser.name : 'Авторизоваться'}
           isMenu={isMenu}
           handleButtonIn={handleButtonIn}

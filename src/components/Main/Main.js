@@ -9,44 +9,23 @@ import NewsCardList from '../NewsCardList/NewsCardList';
 import Popup from '../Popup/Popup';
 
 function Main({
-  isOpen, onClose, isLoginPopupOpen, isRegisteredPopupOpen, isLoggedIn, openPopup, setLoggedIn,
-  onRegister, isRegistered, errorSubmit, setErrorSubmit, openPopupRegister,
-  openPopupLogin, onLogin, isRegisterPopupOpen, errorMessage, onSearchNews, newsCards, onSaveNews,
+  isOpen, onClose, isLoginPopupOpen, isRegisteredPopupOpen, isLoggedIn, openPopup, onSignOut,
+  onRegister, isRegistered, errorSubmit, setErrorSubmit, setKeyword, localKeyword, onDeleteNews,
+  openPopupRegister, isPreloader, setErrorMessage, errorNewsApi, onOpenSavedNews,
+  openPopupLogin, onLogin, isRegisterPopupOpen, savednewsCard,
+  errorMessage, onSearchNews, newsCards, onSaveNews, localSavedNewsCards,
 }) {
-  const [isKeyword, setIsKeyword] = React.useState('');
-  const [isPreloader, setIsPreloader] = React.useState(false);
+  const [isKeyword, setIsKeyword] = React.useState(false);
+  const localNewsCards = (newsCards !== null && newsCards !== undefined);
+  const keywordCardsResult = localNewsCards ? (newsCards.length > 0) : false;
+  const keyword = (localKeyword === null || localKeyword === undefined) ? '' : localKeyword;
+  const savedNewsCards = (localSavedNewsCards === null || localSavedNewsCards === undefined)
+    ? [] : localSavedNewsCards;
 
-  const keywordCardsResult = (newsCards.length > 0 && (newsCards !== (undefined || null)));
-
-  const handleUpdateKeyword = (onUpdateKeyword) => {
-    setIsKeyword(onUpdateKeyword.keyword);
-    onSearchNews(onUpdateKeyword.keyword);
-    setIsPreloader(true);
-    setTimeout(closePreloader, 1000);
-  };
-
-  const closePreloader = () => {
-    setIsPreloader(false);
-  };
-
-  function handleOverlayClose(evt) {
-    if (evt.target === evt.currentTarget) {
-      onClose();
-    }
+  function handleUpdateKeyword(onUpdateKeyword) {
+    setIsKeyword(true);
+    onSearchNews(onUpdateKeyword);
   }
-
-  function handleEscClose(evt) {
-    if (evt.key === 'Escape') {
-      onClose();
-    }
-  }
-
-  React.useEffect(() => {
-    document.addEventListener('keydown', handleEscClose);
-    return () => {
-      document.removeEventListener('keydown', handleEscClose);
-    };
-  }, []);
 
   return (
     <>
@@ -54,20 +33,34 @@ function Main({
         <Header mainPage={true}
           openPopup={openPopup}
           isLoggedIn={isLoggedIn}
-          setLoggedIn={setLoggedIn}
+          onSignOut={onSignOut}
           isOpen={isOpen}
+          onOpenSavedNews={onOpenSavedNews}
         />
-        <SearchForm mainPage={true}
-          onUpdateKeyword={handleUpdateKeyword} />
+        <SearchForm search={true}
+          onUpdateKeyword={handleUpdateKeyword}
+          setKeyword={setKeyword}
+          errorSubmit={errorSubmit}
+          setErrorSubmit={setErrorSubmit}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+          keyword={keyword}
+          setIsKeyword={setIsKeyword}/>
       </div>
       {isPreloader ? <Preloader /> : ''}
-      {keywordCardsResult && !isPreloader ? <NewsCardList mainPage={true}
+      {keywordCardsResult && !isPreloader && !errorNewsApi ? <NewsCardList mainPage={true}
         isLoggedIn={isLoggedIn}
+        openPopup={openPopup}
         keywordCardsResult={keywordCardsResult}
         newsCards={newsCards}
         onSaveNews={onSaveNews}
-        /> : ''}
-      {isKeyword && !keywordCardsResult && !isPreloader ? < NotFound /> : ''}
+        keyword={keyword}
+        savedNewsCards={savedNewsCards}
+        onDeleteNews={onDeleteNews}
+        savednewsCard={savednewsCard}
+        isKeyword={isKeyword}
+      /> : ''}
+      {(isKeyword && !keywordCardsResult && !isPreloader) || errorNewsApi ? < NotFound errorNewsApi={errorNewsApi} /> : ''}
       <About />
       <Popup
         isOpen={isOpen}
@@ -76,7 +69,6 @@ function Main({
         isLoginPopupOpen={isLoginPopupOpen}
         isRegisterPopupOpen={isRegisterPopupOpen}
         isRegisteredPopupOpen={isRegisteredPopupOpen}
-        onCloseOverlay={handleOverlayClose}
         onRegister={onRegister}
         isRegistered={isRegistered}
         errorSubmit={errorSubmit}
