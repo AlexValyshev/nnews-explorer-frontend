@@ -7,9 +7,9 @@ import Login from '../Login/Login';
 
 function Popup({
   isRegistered, isOpen, isLoginPopupOpen, onClose,
-  errorSubmit, setErrorSubmit, isRegisteredPopupOpen,
-  errorMessage, isRegisterPopupOpen, onLogin, background,
-  openPopupLogin, openPopupRegister, onRegister,
+  errorSubmit, setErrorSubmit, isRegisteredPopupOpen, errorMainApi,
+  errorMessage, isRegisterPopupOpen, onLogin, background, setIsDisabled,
+  openPopupLogin, openPopupRegister, onRegister, isDisabled, isInputDisabled,
 }) {
   function handleOverlayClose(evt) {
     if (evt.target === evt.currentTarget) {
@@ -45,6 +45,9 @@ function Popup({
         setErrorSubmit={setErrorSubmit}
         errorMessage={errorMessage}
         isRegisteredPopupOpen={isRegisteredPopupOpen}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
+        isInputDisabled={isInputDisabled}
       />
       <Register
         openBox={isRegisterPopupOpen ? isOpen : false}
@@ -57,12 +60,17 @@ function Popup({
         errorSubmit={errorSubmit}
         setErrorSubmit={setErrorSubmit}
         errorMessage={errorMessage}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
+        isInputDisabled={isInputDisabled}
       />
       <Registered
         openBox={isRegisteredPopupOpen ? isOpen : false}
         isRegistered={isRegistered}
         onClose={onClose}
         openPopupLogin={openPopupLogin}
+        errorMainApi={errorMainApi}
+        errorMessage={errorMessage}
       />
     </section>
   );

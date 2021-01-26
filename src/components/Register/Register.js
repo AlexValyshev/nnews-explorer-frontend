@@ -6,7 +6,7 @@ import useFormWithValidation from '../../utils/validationForm';
 const Register = ({
   isRegistered, openBox, onClose, onRegister,
   openPopupLogin, errorSubmit, setErrorSubmit, errorMessage,
-  isRegisteredPopupOpen,
+  isRegisteredPopupOpen, isDisabled, isInputDisabled, setIsDisabled,
 }) => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -22,18 +22,21 @@ const Register = ({
   function handleNameChange(evt) {
     setName(evt.target.value);
     setErrorSubmit(false);
+    setIsDisabled(false);
     handleChange(evt);
   }
 
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
     setErrorSubmit(false);
+    setIsDisabled(false);
     handleChange(evt);
   }
 
   function handlePasswordChange(evt) {
     setPassword(evt.target.value);
     setErrorSubmit(false);
+    setIsDisabled(false);
     handleChange(evt);
   }
 
@@ -52,6 +55,7 @@ const Register = ({
       password={password}
       name={name}
       isValid={isValid}
+      isDisabled={isDisabled}
     >
       <fieldset className='popup__info'>
         <div className='popup__input-container'>
@@ -64,6 +68,7 @@ const Register = ({
             required
             onChange={handleEmailChange}
             value={values.email || ''}
+            disabled={isInputDisabled}
           />
           <span id='email-reg-error' className='popup__error popup__error_input'>{errors.email || ''}</span>
         </div>
@@ -79,6 +84,7 @@ const Register = ({
             required
             onChange={handlePasswordChange}
             value={values.password || ''}
+            disabled={isInputDisabled}
           />
           <span id='password-reg-error' className='popup__error popup__error_input'>{errors.password || ''}</span>
         </div>
@@ -94,6 +100,7 @@ const Register = ({
             required
             onChange={handleNameChange}
             value={values.name || ''}
+            disabled={isInputDisabled}
           />
           <span id='name-error' className='popup__error popup__error_input'>{errors.name || ''}</span>
         </div>

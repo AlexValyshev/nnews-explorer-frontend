@@ -4,21 +4,25 @@ import './Button.css';
 
 function Button({
   mainPage, savedNewsPage, isMenu, handleButtonIn, handleButtonOut, handleButtonClick,
-  search, cardsList, isLoggedIn, popupForm, nameButton, hiddenButton, isDisabled,
+  search, cardsList, isLoggedIn, popupForm, nameButton, hiddenButton, isDisabled, isValid,
 }) {
+  const buttonSearchDisabled = !!((search && isDisabled));
+  const buttonValidDisavled = !!((popupForm && !isValid));
+  const buttonFormDisabled = isDisabled || buttonValidDisavled;
+
   return (
     <button
       onClick={cardsList ? handleButtonClick
         : (isLoggedIn ? handleButtonOut : handleButtonIn)}
       type={search || popupForm ? 'submit' : 'button'}
       className={`button ${(isMenu || mainPage) ? 'button_theme_light' : ''}
-          ${(!isDisabled && popupForm) ? 'button_disabled' : ''}
+          ${(buttonSearchDisabled || buttonFormDisabled) ? 'button_disabled' : ''}
           ${search ? 'button_theme_search' : ''}
           ${cardsList ? 'button_theme_cards' : ''}
           ${savedNewsPage ? 'button_hidden' : ''}
           ${popupForm ? 'button_theme_form' : ''}
           ${(cardsList && hiddenButton) ? 'button_hidden' : ''}`}
-      disabled={!!((popupForm && !isDisabled))}
+      disabled={popupForm ? buttonFormDisabled : buttonSearchDisabled}
     >
       <span className={`button__link ${(isMenu || mainPage) ? 'button__link_theme_light' : ''}
       ${cardsList ? 'button__link_theme_cards' : ''}

@@ -20,7 +20,7 @@ export function getArticles(token) { // Запрос на загрузку со�
 }
 
 export function addArticle({
-  keyword, title, text, date, source, link, image,
+  number, keyword, title, text, date, source, link, image,
 }, token) { // Запрос на добавление новой карточки
   return fetch(`${apiUrl}/articles`, {
     method: 'POST',
@@ -29,6 +29,7 @@ export function addArticle({
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
+      number: `${number}`,
       keyword: `${keyword}`,
       title: `${title}`,
       text: `${text}`,

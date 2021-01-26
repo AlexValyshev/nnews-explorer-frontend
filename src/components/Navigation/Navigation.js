@@ -18,7 +18,7 @@ const Navigation = ({
 
   function handleButtonOut() {
     history.push('/');
-    onSignOut(false);
+    onSignOut();
   }
 
   return (

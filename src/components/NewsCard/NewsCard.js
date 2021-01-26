@@ -4,17 +4,17 @@ import * as myDate from '../../utils/myDate';
 
 const NewsCard = ({
   card, isLoggedIn, mainPage, savedNewsPage, onSaveNews,
-  keyword, onDeleteNews, savedNews, openPopup,
+  keyword, onDeleteNews, savedNews, openPopup, number,
 }) => {
   const saved1 = savedNews !== undefined;
   const [isHover, setIsHover] = React.useState(false);
   const cardDate = myDate.getArticle(card.publishedAt);
   const saved = (card._id === '' || card._id === undefined) ? saved1 : true;
   const [isSave, setIsSave] = React.useState(saved || false);
-
   function handleSave() {
     setIsSave(true);
     onSaveNews({
+      number,
       keyword,
       title: card.title,
       text: card.description,
@@ -22,7 +22,13 @@ const NewsCard = ({
       source: card.source.name,
       link: card.url,
       image: card.urlToImage,
-    });
+    }, toggleIconSave);
+  }
+
+  function toggleIconSave(err) {
+    if (err) {
+      setIsSave(false);
+    }
   }
 
   function handleDeleteSaved() {

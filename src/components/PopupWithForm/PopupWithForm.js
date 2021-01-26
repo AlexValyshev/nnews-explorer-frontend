@@ -5,7 +5,7 @@ import './PopupWithForm.css';
 function PopupWithForm({
   title, nameButton, link, isRegistered, children, onClose,
   onUserUpdate, errorSubmit, openBox, isRegisteredPopupOpen,
-  errorMessage, name, email, password, onOpenPopupBox, isValid,
+  errorMessage, name, email, password, onOpenPopupBox, isValid, isDisabled,
 }) {
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -32,7 +32,8 @@ function PopupWithForm({
           <Button
             popupForm={true}
             nameButton={nameButton}
-            isDisabled={isValid}
+            isDisabled={isDisabled}
+            isValid={isValid}
           />
         </form>
         <div className={`popup__choice ${isRegisteredPopupOpen ? 'popup__choice_registered' : ''}`}>{isRegistered ? '' : 'Или '}

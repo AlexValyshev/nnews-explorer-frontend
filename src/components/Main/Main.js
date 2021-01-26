@@ -10,23 +10,21 @@ import Popup from '../Popup/Popup';
 
 function Main({
   isOpen, onClose, isLoginPopupOpen, isRegisteredPopupOpen, isLoggedIn, openPopup, onSignOut,
-  onRegister, isRegistered, errorSubmit, setErrorSubmit, setKeyword, localKeyword, onDeleteNews,
-  openPopupRegister, isPreloader, setErrorMessage, errorNewsApi, onOpenSavedNews,
-  openPopupLogin, onLogin, isRegisterPopupOpen, savednewsCard,
-  errorMessage, onSearchNews, newsCards, onSaveNews, localSavedNewsCards,
+  onRegister, isRegistered, errorSubmit, setErrorSubmit, localKeyword, onDeleteNews,
+  openPopupRegister, isPreloader, setErrorMessage, errorNewsApi, onOpenSavedNews, errorMainApi,
+  openPopupLogin, onLogin, isRegisterPopupOpen, isDisabled, setIsDisabled, isKeyword,
+  errorMessage, onSearchNews, newsCards, onSaveNews, localSavedNewsCards, isInputDisabled, number,
 }) {
-  const [isKeyword, setIsKeyword] = React.useState(false);
   const localNewsCards = (newsCards !== null && newsCards !== undefined);
-  const keywordCardsResult = localNewsCards ? (newsCards.length > 0) : false;
+  const keywordCardsResult = localNewsCards
+    ? ((newsCards.length > 0 && newsCards.length !== 0)) : false;
   const keyword = (localKeyword === null || localKeyword === undefined) ? '' : localKeyword;
   const savedNewsCards = (localSavedNewsCards === null || localSavedNewsCards === undefined)
     ? [] : localSavedNewsCards;
 
   function handleUpdateKeyword(onUpdateKeyword) {
-    setIsKeyword(true);
     onSearchNews(onUpdateKeyword);
   }
-
   return (
     <>
       <div className='main-background'>
@@ -39,13 +37,12 @@ function Main({
         />
         <SearchForm search={true}
           onUpdateKeyword={handleUpdateKeyword}
-          setKeyword={setKeyword}
           errorSubmit={errorSubmit}
           setErrorSubmit={setErrorSubmit}
           errorMessage={errorMessage}
           setErrorMessage={setErrorMessage}
-          keyword={keyword}
-          setIsKeyword={setIsKeyword}/>
+          setIsDisabled={setIsDisabled}
+          isDisabled={isDisabled}/>
       </div>
       {isPreloader ? <Preloader /> : ''}
       {keywordCardsResult && !isPreloader && !errorNewsApi ? <NewsCardList mainPage={true}
@@ -57,8 +54,7 @@ function Main({
         keyword={keyword}
         savedNewsCards={savedNewsCards}
         onDeleteNews={onDeleteNews}
-        savednewsCard={savednewsCard}
-        isKeyword={isKeyword}
+        number={number}
       /> : ''}
       {(isKeyword && !keywordCardsResult && !isPreloader) || errorNewsApi ? < NotFound errorNewsApi={errorNewsApi} /> : ''}
       <About />
@@ -72,10 +68,14 @@ function Main({
         onRegister={onRegister}
         isRegistered={isRegistered}
         errorSubmit={errorSubmit}
+        errorMainApi={errorMainApi}
         setErrorSubmit={setErrorSubmit}
         errorMessage={errorMessage}
         openPopupRegister={openPopupRegister}
         openPopupLogin={openPopupLogin}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
+        isInputDisabled={isInputDisabled}
       />
     </>
   );
