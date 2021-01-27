@@ -6,14 +6,14 @@ import Preloader from '../Preloader/Preloader';
 import NotFound from '../NotFound/NotFound';
 import About from '../About/About';
 import NewsCardList from '../NewsCardList/NewsCardList';
-import Popup from '../Popup/Popup';
+// import Popup from '../Popup/Popup';
 
 function Main({
-  isOpen, onClose, isLoginPopupOpen, isRegisteredPopupOpen, isLoggedIn, openPopup, onSignOut,
-  onRegister, isRegistered, errorSubmit, setErrorSubmit, localKeyword, onDeleteNews,
-  openPopupRegister, isPreloader, setErrorMessage, errorNewsApi, onOpenSavedNews, errorMainApi,
-  openPopupLogin, onLogin, isRegisterPopupOpen, isDisabled, setIsDisabled, isKeyword,
-  errorMessage, onSearchNews, newsCards, onSaveNews, localSavedNewsCards, isInputDisabled, number,
+  isOpen, isLoggedIn, openPopup, onSignOut,
+  errorSubmit, setErrorSubmit, localKeyword, onDeleteNews,
+  isPreloader, setErrorMessage, errorNewsApi, onOpenSavedNews,
+  isDisabled, setIsDisabled, isKeyword,
+  errorMessage, onSearchNews, newsCards, onSaveNews, localSavedNewsCards, number,
 }) {
   const localNewsCards = (newsCards !== null && newsCards !== undefined);
   const keywordCardsResult = localNewsCards
@@ -58,25 +58,6 @@ function Main({
       /> : ''}
       {(isKeyword && !keywordCardsResult && !isPreloader) || errorNewsApi ? < NotFound errorNewsApi={errorNewsApi} /> : ''}
       <About />
-      <Popup
-        isOpen={isOpen}
-        onClose={onClose}
-        onLogin={onLogin}
-        isLoginPopupOpen={isLoginPopupOpen}
-        isRegisterPopupOpen={isRegisterPopupOpen}
-        isRegisteredPopupOpen={isRegisteredPopupOpen}
-        onRegister={onRegister}
-        isRegistered={isRegistered}
-        errorSubmit={errorSubmit}
-        errorMainApi={errorMainApi}
-        setErrorSubmit={setErrorSubmit}
-        errorMessage={errorMessage}
-        openPopupRegister={openPopupRegister}
-        openPopupLogin={openPopupLogin}
-        isDisabled={isDisabled}
-        setIsDisabled={setIsDisabled}
-        isInputDisabled={isInputDisabled}
-      />
     </>
   );
 }

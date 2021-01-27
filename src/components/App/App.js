@@ -6,6 +6,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
+import Popup from '../Popup/Popup';
 import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import * as auth from '../../utils/auth';
@@ -34,7 +35,6 @@ function App() {
   const [isInputDisabled, setIsInputDisabled] = React.useState(false);
   const history = useHistory();
   const [number, setNumberCard] = React.useState(1);
-  // console.log(isLoggedIn);
 
   function handleOpenPopup() {
     setLoginPopupOpen(true);
@@ -103,11 +103,10 @@ function App() {
       auth.tokenValid(jwt)
         .then((res) => {
           setLoggedIn(true);
-          console.log(1);
           setCurrentUser(res);
           setKeyword(JSON.parse(localStorage.getItem('keyword')));
-          setSavedNewsCards(JSON.parse(localStorage.getItem('savedCards')));
           const oldNumber = JSON.parse(localStorage.getItem('number'));
+          console.log(oldNumber);
           const number1 = (oldNumber === null) ? 1 : oldNumber;
           setNumberCard(number1);
         })
@@ -120,6 +119,7 @@ function App() {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
+    setSavedNewsCards(JSON.parse(localStorage.getItem('savedCards')));
     setNewsCards(JSON.parse(localStorage.getItem('newsCards')));
   }, []);
 
@@ -137,8 +137,10 @@ function App() {
         setTimeout(visibleErrorSubmit, TimeDelaySubmit);
         if (err.message === '409') {
           setErrorMessage('Такой пользователь уже есть');
-        } else {
+        } else if (err.message === '400') {
           setErrorMessage('Пароль или email введены некорректно!');
+        } else {
+          setErrorMessage('Ошибка сервера!');
         }
       });
   }
@@ -154,7 +156,6 @@ function App() {
         setLoggedIn(true);
         setKeyword(localStorage.removeItem('keyword'));
         setNewsCards(localStorage.removeItem('newsCards'));
-        setSavedNewsCards([]);
         setIsKeyword(false);
         handleOpenSavedMews();
         history.push('/');
@@ -163,8 +164,10 @@ function App() {
         setTimeout(visibleErrorSubmit, TimeDelaySubmit);
         if (err.message === '401') {
           setErrorMessage('Вы не зарегестрированы');
-        } else {
+        } else if (err.message === '400') {
           setErrorMessage('Пароль или email введены некорректно!');
+        } else {
+          setErrorMessage('Ошибка сервера!');
         }
       });
   }
@@ -218,23 +221,22 @@ function App() {
     });
   }
 
-  function handleSaveNews(card, toggleIcon) {
+  function handleSaveNews(card, IconSaveDel) {
     const jwt = localStorage.getItem('token');
     mainApi.addArticle(card, jwt)
       .then((savedCard) => {
         const newNewsCards = addIdNewNewsCards(savedCard);
         setNewsCards(newNewsCards);
         localStorage.setItem('newsCards', JSON.stringify(newNewsCards));
-        const result = (savedNewsCards === null) ? [savedCard] : [savedCard, ...savedNewsCards];
-        setSavedNewsCards(result);
-        localStorage.setItem('savedCards', JSON.stringify(result));
-        setNumberCard(savedCard.number + 1);
-        localStorage.setItem('number', JSON.stringify(savedCard.number + 1));
+        const newNumber = savedCard.number + 1;
+        setNumberCard(newNumber);
+        localStorage.setItem('number', JSON.stringify(newNumber));
       })
       .catch((err) => {
         console.log(err.message);
-        toggleIcon(err);
+        IconSaveDel(err);
         openPopupWithError();
+        setErrorMessage('Ошибка при сохранении, попробуйте позже.');
       });
   }
 
@@ -248,8 +250,9 @@ function App() {
         localStorage.setItem('savedCards', JSON.stringify(result2));
         const startNumberCard = (savedCards === [] || savedCards === null
         || savedCards === undefined)
-          ? 1 : Math.max.apply(null, savedCards.map((item) => item.number));
-        setNumberCard(startNumberCard + 1);
+          ? 1 : Math.max.apply(null, savedCards.map((item) => item.number)) + 1;
+        setNumberCard(startNumberCard);
+        localStorage.setItem('number', JSON.stringify(startNumberCard));
       })
       .catch((err) => {
         console.log(err.message);
@@ -267,7 +270,7 @@ function App() {
     localStorage.setItem('newsCards', JSON.stringify(newNewsCards));
   }
 
-  function handleDeleteNews(card) {
+  function handleDeleteNews(card, IconSave) {
     const jwt = localStorage.getItem('token');
     mainApi.deleteArticle(card._id, jwt)
       .then((delCard) => {
@@ -280,6 +283,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err.message);
+        IconSave(err);
+        openPopupWithError();
+        setErrorMessage('Ошибка при удалении, попробуйте позже.');
       });
   }
 
@@ -290,22 +296,12 @@ function App() {
           <Route exact path='/'>
             <Main
               isOpen={isOpen}
-              onClose={closeAllPopups}
-              onLogin={onLogin}
-              isLoginPopupOpen={isLoginPopupOpen}
-              isRegisterPopupOpen={isRegisterPopupOpen}
-              isRegisteredPopupOpen={isRegisteredPopupOpen}
               openPopup={handleOpenPopup}
               isLoggedIn={isLoggedIn}
               onSignOut={onSignOut}
-              onRegister={onRegister}
-              isRegistered={isRegistered}
               errorSubmit={errorSubmit}
-              errorMainApi={errorMainApi}
               setErrorSubmit={setErrorSubmit}
               errorMessage={errorMessage}
-              openPopupLogin={openPopupLogin}
-              openPopupRegister={openPopupRegister}
               onSearchNews={handleSearchNews}
               newsCards={newsCards}
               onSaveNews={handleSaveNews}
@@ -319,7 +315,6 @@ function App() {
               localSavedNewsCards={savedNewsCards}
               isDisabled={isDisabled}
               setIsDisabled={setIsDisabled}
-              isInputDisabled={isInputDisabled}
               number={number}
             />
           </Route>
@@ -334,6 +329,25 @@ function App() {
           />
         </Switch>
       </CurrentUserContext.Provider>
+      <Popup
+        isOpen={isOpen}
+        onClose={closeAllPopups}
+        onLogin={onLogin}
+        isLoginPopupOpen={isLoginPopupOpen}
+        isRegisterPopupOpen={isRegisterPopupOpen}
+        isRegisteredPopupOpen={isRegisteredPopupOpen}
+        onRegister={onRegister}
+        isRegistered={isRegistered}
+        errorSubmit={errorSubmit}
+        errorMainApi={errorMainApi}
+        setErrorSubmit={setErrorSubmit}
+        errorMessage={errorMessage}
+        openPopupRegister={openPopupRegister}
+        openPopupLogin={openPopupLogin}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
+        isInputDisabled={isInputDisabled}
+      />
       <Footer />
     </div>
   );

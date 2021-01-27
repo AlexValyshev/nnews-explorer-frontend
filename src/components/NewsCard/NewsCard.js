@@ -23,12 +23,18 @@ const NewsCard = ({
       source: card.source.name,
       link: card.url,
       image: card.urlToImage,
-    }, toggleIconSave);
+    }, IconSaveDel);
   }
 
-  function toggleIconSave(err) {
+  function IconSaveDel(err) {
     if (err) {
       setIsSave(false);
+    }
+  }
+
+  function IconSave(err) {
+    if (err) {
+      setIsSave(true);
     }
   }
 
@@ -36,7 +42,7 @@ const NewsCard = ({
     setIsSave(false);
     onDeleteNews({
       _id: card._id === undefined ? savedNews._id : card._id,
-    });
+    }, IconSave);
   }
 
   function handleOpenPopup() {

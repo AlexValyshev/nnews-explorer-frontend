@@ -10,9 +10,6 @@ function NewsCardList({
 }) {
   const [numbers, setNumbers] = React.useState(3);
   const [hiddenButton, setHiddenButton] = React.useState(false);
-  // const startNumberCard = Math.max.apply(null, savedNewsCards.map((item) => item.number));
-  // const numberCard = (startNumberCard === -Infinity) ? 1 : startNumberCard;
-  // console.log(numberCard);
 
   function handleButtonClick() {
     setNumbers(numbers + NumbersCards);
