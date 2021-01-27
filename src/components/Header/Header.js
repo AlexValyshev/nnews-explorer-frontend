@@ -12,12 +12,20 @@ const Header = ({
     setIsMenu(!isMenu);
   }
 
+  function handleOverlayClose(evt) {
+    if (evt.target === evt.currentTarget) {
+      handleMenuClick();
+    }
+  }
+
   return (
     <header className={` header ${mainPage ? 'header_theme_light' : ''}
     ${isMenu ? 'header_theme_background' : ''}
     ${!isOpen ? 'header_fixed' : ''}`} >
+      <div onClick={handleOverlayClose} className={isMenu ? 'navigation__background' : ''}></div>
       <div className='header__container container'>
-        <Link to={savedNewsPage ? '/' : '#'} className={`header__title ${mainPage ? 'header__title_theme_light' : ''} ${isMenu ? 'header__title_theme_light' : ''}`}>
+        <Link to={savedNewsPage ? '/' : '#'} onClick={isMenu ? handleMenuClick : null}
+          className={`header__title ${mainPage ? 'header__title_theme_light' : ''} ${isMenu ? 'header__title_theme_light' : ''}`}>
         NewsExplorer
         </Link>
         <Navigation

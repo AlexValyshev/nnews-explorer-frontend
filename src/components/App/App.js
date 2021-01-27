@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import {
+  Switch, Route, useHistory,
+} from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
@@ -32,6 +34,7 @@ function App() {
   const [isInputDisabled, setIsInputDisabled] = React.useState(false);
   const history = useHistory();
   const [number, setNumberCard] = React.useState(1);
+  // console.log(isLoggedIn);
 
   function handleOpenPopup() {
     setLoginPopupOpen(true);
@@ -100,6 +103,7 @@ function App() {
       auth.tokenValid(jwt)
         .then((res) => {
           setLoggedIn(true);
+          console.log(1);
           setCurrentUser(res);
           setKeyword(JSON.parse(localStorage.getItem('keyword')));
           setSavedNewsCards(JSON.parse(localStorage.getItem('savedCards')));
@@ -322,6 +326,7 @@ function App() {
           <ProtectedRoute exact path='/saved-news'
             component={SavedNews}
             isLoggedIn={isLoggedIn}
+            setLoggedIn={setLoggedIn}
             openPopup={handleOpenPopup}
             onSignOut={onSignOut}
             localSavedNewsCards={savedNewsCards}

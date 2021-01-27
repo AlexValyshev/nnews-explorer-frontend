@@ -1,6 +1,6 @@
-// const { NODE_ENV, REACT_APP_API_URL } = process.env;
-// export const apiUrl = NODE_ENV === 'production' ? REACT_APP_API_URL : 'http://localhost:3001';
-const apiUrl = 'https://www.api.alev.news.students.nomoredomains.monster';
+const { NODE_ENV, REACT_APP_API_URL } = process.env;
+export const apiUrl = NODE_ENV === 'production' ? REACT_APP_API_URL : 'http://localhost:3001';
+// const apiUrl = 'https://www.api.alev.news.students.nomoredomains.monster';
 
 function resFetch(res) {
   if (res.ok) {

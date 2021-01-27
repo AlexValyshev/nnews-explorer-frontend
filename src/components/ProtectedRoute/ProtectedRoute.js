@@ -1,17 +1,19 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { TimeDelayPopup } from '../../utils/constant';
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
+  const jwt = localStorage.getItem('token');
   React.useEffect(() => {
-    if (!props.isLoggedIn && !localStorage.getItem('token')) {
-      props.openPopup();
+    if (!jwt && !props.isLoggedIn) {
+      setTimeout(props.openPopup, TimeDelayPopup);
     }
   });
 
   return (
     <Route>
       {
-        props.isLoggedIn ? <Component {...props} /> : <Redirect to='/'/>
+        jwt ? <Component {...props} /> : <Redirect to='/'/>
       }
     </Route>
   );

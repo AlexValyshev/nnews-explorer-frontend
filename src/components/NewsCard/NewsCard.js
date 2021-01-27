@@ -1,6 +1,7 @@
 import React from 'react';
 import './NewsCard.css';
 import * as myDate from '../../utils/myDate';
+import { TimeDelayPopup } from '../../utils/constant';
 
 const NewsCard = ({
   card, isLoggedIn, mainPage, savedNewsPage, onSaveNews,
@@ -38,8 +39,12 @@ const NewsCard = ({
     });
   }
 
+  function handleOpenPopup() {
+    setTimeout(openPopup, TimeDelayPopup);
+  }
+
   const onTogleSave = !isSave ? handleSave : handleDeleteSaved;
-  const onChoice = savedNewsPage ? handleDeleteSaved : openPopup;
+  const onChoice = savedNewsPage ? handleDeleteSaved : handleOpenPopup;
 
   function handleMouseEnter() {
     setIsHover(true);
