@@ -1,36 +1,63 @@
 import React from 'react';
 import './SearchForm.css';
 import Button from '../Button/Button';
+import { TimeDelayError, TimeDelayReset } from '../../utils/constant';
 
 function SearchForm({
-  onUpdateKeyword, errorSubmit, errorMessage, search,
-  setErrorSubmit, setErrorMessage, setKeyword, keyword,
+  onUpdateKeyword, errorSubmit, errorMessage, search, setIsDisabled,
+  setErrorSubmit, setErrorMessage, isDisabled,
 }) {
   const form = React.useRef(null);
+  const [inputSearch, setInputSearch] = React.useState('');
+  const [isSubmit, setIsSubmit] = React.useState(false);
 
   function handleKeyWordChange(evt) {
-    setKeyword(evt.target.value);
-    if (evt.target.value) {
-      validationSearch();
+    if (evt.target) {
+      validationSearch(evt.target);
     }
+    setInputSearch(evt.target.value);
   }
-  function validationSearch() {
-    if (keyword.length < 1) {
+
+  function validationSearch(input) {
+    if (!input.validity.valid) {
       setErrorSubmit(true);
-      setErrorMessage('Длина ключевого слова должна быть от 2 до 30 символов, сейчас 1 ');
+      setErrorMessage(input.validationMessage);
     } else {
       setErrorSubmit(false);
     }
   }
 
+  function handleOutInput() {
+    setTimeout(resetInput, TimeDelayReset);
+  }
+
+  function resetInput() {
+    if (!isSubmit) {
+      form.current.reset();
+      setInputSearch('');
+      setErrorSubmit(false);
+    }
+  }
+
+  function removeError() {
+    setErrorSubmit(false);
+    setIsSubmit(false);
+    setIsDisabled(false);
+  }
+
   function handleSubmit(evt) {
     evt.preventDefault();
-    if (keyword === '') {
+    setIsSubmit(true);
+    if (inputSearch === '') {
       setErrorSubmit(true);
       setErrorMessage('Нужно ввести ключевое слово');
-    } if (keyword.length > 1) {
-      onUpdateKeyword(keyword);
+      setIsDisabled(true);
+      setTimeout(removeError, TimeDelayError); // Ошибка исчезнет через 2 секунды.
+    } if (inputSearch.length > 1) {
+      onUpdateKeyword(inputSearch);
       form.current.reset();
+      setInputSearch('');
+      setIsSubmit(false);
     }
   }
 
@@ -42,6 +69,7 @@ function SearchForm({
         action="#" method="post"
         noValidate
         ref={form}
+        onBlur={handleOutInput}
         onSubmit={handleSubmit}>
         <span id="search-input-error" className={`search__error ${errorSubmit ? 'search__error_visible' : ''}`}>
           {errorMessage}
@@ -53,12 +81,15 @@ function SearchForm({
             minLength='2'
             maxLength="30"
             required
-            onChange={handleKeyWordChange} />
+            onChange={handleKeyWordChange}
+            disabled={isDisabled}
+          />
           <Button
             mainPage={true}
             search={search}
             nameButton='Искать'
             cardsList={false}
+            isDisabled={isDisabled}
           />
         </div>
       </form>

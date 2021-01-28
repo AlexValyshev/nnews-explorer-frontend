@@ -6,7 +6,7 @@ import useFormWithValidation from '../../utils/validationForm';
 function Login({
   openBox, isRegistered, onClose, onLogin,
   openPopupRegister, errorSubmit, setErrorSubmit, errorMessage,
-  isRegisteredPopupOpen,
+  isRegisteredPopupOpen, isDisabled, isInputDisabled, setIsDisabled,
 }) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -21,12 +21,14 @@ function Login({
   function handleEmailChange(evt) {
     setEmail(evt.target.value);
     setErrorSubmit(false);
+    setIsDisabled(false);
     handleChange(evt);
   }
 
   function handlePasswordChange(evt) {
     setPassword(evt.target.value);
     setErrorSubmit(false);
+    setIsDisabled(false);
     handleChange(evt);
   }
 
@@ -44,6 +46,7 @@ function Login({
       email={email}
       password={password}
       isValid={isValid}
+      isDisabled={isDisabled}
     >
       <fieldset className='popup__info'>
         <div className='popup__input-container'>
@@ -56,6 +59,7 @@ function Login({
             required
             onChange={handleEmailChange}
             value={values.email || ''}
+            disabled={isInputDisabled}
           />
           <span id='email-error' className='popup__error popup__error_input'>{errors.email || ''}</span>
         </div>
@@ -71,6 +75,7 @@ function Login({
             required
             onChange={handlePasswordChange}
             value={values.password || ''}
+            disabled={isInputDisabled}
           />
           <span id='password-error' className='popup__error popup__error_input'>{errors.password || ''}</span>
         </div>

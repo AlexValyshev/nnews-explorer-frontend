@@ -1,7 +1,10 @@
 import * as myDate from './myDate';
+import { MAIN_API_KEY, PAGE_SIZE } from './constant';
 
 const { NODE_ENV, REACT_APP_NEWSAPI_URL } = process.env;
 export const apiUrl = NODE_ENV === 'production' ? REACT_APP_NEWSAPI_URL : 'https://newsapi.org';
+export const mainApiKey = MAIN_API_KEY;
+export const mainPageSize = PAGE_SIZE;
 
 class NewsApi {
   constructor(options) {
@@ -24,6 +27,6 @@ export const newsApi = new NewsApi({
     + `from=${myDate.getLastWeek()}&`
     + `to=${myDate.getToday()}&`
     + 'sortBy=popularity&'
-    + 'pageSize=100&'
-    + 'apiKey=c5632213d558435ba2caca5b4109bc44',
+    + `pageSize=${PAGE_SIZE}&`
+    + `apiKey=${mainApiKey}`,
 });

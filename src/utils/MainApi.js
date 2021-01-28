@@ -1,6 +1,6 @@
-// const { NODE_ENV, REACT_APP_API_URL } = process.env;
-// export const apiUrl = NODE_ENV === 'production' ? REACT_APP_API_URL : 'http://localhost:3001';
-const apiUrl = 'https://www.api.alev.news.students.nomoredomains.monster';
+const { NODE_ENV, REACT_APP_API_URL } = process.env;
+export const apiUrl = NODE_ENV === 'production' ? REACT_APP_API_URL : 'http://localhost:3001';
+// const apiUrl = 'https://www.api.alev.news.students.nomoredomains.monster';
 
 function resFetch(res) {
   if (res.ok) {
@@ -20,7 +20,7 @@ export function getArticles(token) { // Запрос на загрузку со�
 }
 
 export function addArticle({
-  keyword, title, text, date, source, link, image,
+  number, keyword, title, text, date, source, link, image,
 }, token) { // Запрос на добавление новой карточки
   return fetch(`${apiUrl}/articles`, {
     method: 'POST',
@@ -29,6 +29,7 @@ export function addArticle({
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
+      number: `${number}`,
       keyword: `${keyword}`,
       title: `${title}`,
       text: `${text}`,

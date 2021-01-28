@@ -21,7 +21,7 @@ function SavedNewsHeader({ savedNewsCards }) {
   return (
     <section className='news container'>
       <p className='news__info'>Сохраненные статьи</p>
-      <h1 className='news__title'>{currentUser.name}, у вас {numbers > 20 ? '' : numbers} {description(numbers)}</h1>
+      <h1 className='news__title'>{currentUser.name}, у вас {numbers} {description(numbers)}</h1>
       <p className='news__subtitle'>{numbersResult ? '' : 'По ключевым словам:'}
         <span className='news__keywords'>{numbersResult ? '' : keywordsList(keywords)}</span>
       </p>

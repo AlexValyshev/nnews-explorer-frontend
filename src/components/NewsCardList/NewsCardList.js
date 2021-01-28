@@ -2,17 +2,18 @@ import React from 'react';
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
 import Button from '../Button/Button';
+import { NumbersCards } from '../../utils/constant';
 
 function NewsCardList({
-  mainPage, savedNewsPage, isLoggedIn, keywordCardsResult,
+  mainPage, savedNewsPage, isLoggedIn, keywordCardsResult, number,
   newsCards, onSaveNews, savedNewsCards, keyword, onDeleteNews, openPopup,
 }) {
   const [numbers, setNumbers] = React.useState(3);
   const [hiddenButton, setHiddenButton] = React.useState(false);
 
   function handleButtonClick() {
-    setNumbers(numbers + 3);
-    if ((numbers + 3) >= newsCards.length) {
+    setNumbers(numbers + NumbersCards);
+    if ((numbers + NumbersCards) >= newsCards.length) {
       setHiddenButton(true);
     }
   }
@@ -30,6 +31,7 @@ function NewsCardList({
             ? newsCards.slice(0, numbers).map((card, i) => (<NewsCard
               key={i} card={card}
               savedNews={savedNewsCards.find((item) => (item.link === card.url))}
+              number={number}
               onSaveNews={onSaveNews}
               isLoggedIn={isLoggedIn}
               mainPage={mainPage}

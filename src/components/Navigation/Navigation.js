@@ -17,22 +17,23 @@ const Navigation = ({
   }
 
   function handleButtonOut() {
+    handleMenuClick();
     history.push('/');
-    onSignOut(false);
+    onSignOut();
   }
 
   return (
     <div className='navigation'>
-
       <div className={isMenu ? 'navigation__container navigation__menu' : 'navigation__container'}>
-        <div className={isMenu ? 'navigation__background' : ''}></div>
         <nav className='navigation__links'>
-          <NavLink to='/' className={`navigation__link ${mainPage ? 'navigation_theme-light navigation__link_active navigation__link_active_theme-light' : ''}
+          <NavLink to='/' onClick={handleMenuClick}
+            className={`navigation__link ${mainPage ? 'navigation_theme-light navigation__link_active navigation__link_active_theme-light' : ''}
             ${isMenu ? 'navigation_theme-light' : ''}`}>
             Главная
           </NavLink>
           {isLoggedIn
-            ? <NavLink to='/saved-news' onClick={onOpenSavedNews} className={`navigation__link ${(isMenu || mainPage) ? 'navigation_theme-light' : 'navigation__link_active'}`}>
+            ? <NavLink to='/saved-news' onClick={mainPage ? onOpenSavedNews : handleMenuClick}
+              className={`navigation__link ${(isMenu || mainPage) ? 'navigation_theme-light' : 'navigation__link_active'}`}>
               Сохраненные статьи
             </NavLink> : ''
           }

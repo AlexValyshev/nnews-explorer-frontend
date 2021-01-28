@@ -1,15 +1,11 @@
 function description(numbers) {
-  if (numbers === 'нет') {
-    return 'сохранённых статей';
-  } if (numbers > 0 && numbers < 21) {
-    if (numbers === 1) {
-      return 'сохранённая статья';
-    } if (numbers === 2 || numbers === 3 || numbers === 4) {
-      return 'сохранённые статьи';
-    }
-    return 'сохранённых статей';
+  if (numbers === 1 || ((numbers - 1) % 10 === 0)) {
+    return 'сохранённая статья';
+  } if (numbers === 2 || numbers === 3 || numbers === 4 || ((numbers - 2) % 10 === 0)
+    || ((numbers - 3) % 10 === 0) || ((numbers - 4) % 10 === 0)) {
+    return 'сохранённые статьи';
   }
-  return 'более 20 сохранённых статей';
+  return 'сохранённых статей';
 }
 
 function keywordsList(newKeywords) {
